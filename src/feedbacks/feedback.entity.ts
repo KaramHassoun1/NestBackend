@@ -1,4 +1,5 @@
 import { Recipe } from "src/recipes/recipe.entity";
+import { User } from "src/users/entities/user.entity";
 import { BaseEntity, BeforeInsert, Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
@@ -22,4 +23,7 @@ export class Feedback extends BaseEntity{
 
     @ManyToOne(() => Recipe, recipe => recipe.feedbacks)
     recipe: Recipe;
+
+    @ManyToOne(() => User, user => user.feedbacks)
+    user: User;
 }

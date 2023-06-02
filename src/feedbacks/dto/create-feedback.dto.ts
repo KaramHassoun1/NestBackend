@@ -9,4 +9,7 @@ export class CreateFeedbackDto {
 
     @IsNotEmpty()
     recipeId: number;
+
+    @IsNotEmpty()
+    userId: number;
 }

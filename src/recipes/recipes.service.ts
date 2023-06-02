@@ -73,6 +73,18 @@ export class RecipesService {
         return recipe;
     }
 
+    async deleteIngredient(id: number, ingredientId: number) {
+        let recipe = await this.findById(id);
+        if (!recipe) {
+            throw new NotFoundException('Recipe not found', '404');
+        }
+        recipe.ingredients = recipe.ingredients.filter(ingredient => ingredient.id !== ingredientId);
+        await recipe.save();
+        return recipe;
+    }
+
+    
+
     async showIngredients(id: number) {
         const recipe = await Recipe.findOne({ where: { id } , relations: ['ingredients']});
         if (!recipe) {

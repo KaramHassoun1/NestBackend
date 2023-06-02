@@ -1,6 +1,7 @@
 import { Feedback } from "src/feedbacks/feedback.entity";
 import { Ingredient } from "src/ingredients/ingredient.entity";
-import { BaseEntity, BeforeInsert, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { User } from "src/users/entities/user.entity";
+import { BaseEntity, BeforeInsert, Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Recipe extends BaseEntity{
@@ -36,4 +37,10 @@ export class Recipe extends BaseEntity{
 
     @OneToMany(() => Feedback, feedback => feedback.recipe)
     feedbacks: Feedback[];
+
+    @ManyToMany(() => User)
+    @JoinTable()
+    users: User[];
+
+
 }

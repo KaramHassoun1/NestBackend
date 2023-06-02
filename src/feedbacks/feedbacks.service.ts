@@ -3,6 +3,7 @@ import { Feedback } from './feedback.entity';
 import { Recipe } from 'src/recipes/recipe.entity';
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
 import { UpdateFeedbackDto } from './dto/update-feedback.dto';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class FeedbacksService {
@@ -11,13 +12,18 @@ export class FeedbacksService {
         let feedback = new Feedback();
         feedback.comment = createFeedbackDto.comment;
         feedback.rating = createFeedbackDto.rating;
-        const recipe = await Recipe.findOne({ where: { id: createFeedbackDto.recipeId }, relations: ['feedbacks'] });
+        const recipe = await Recipe.findOne({ where: { id: createFeedbackDto.recipeId }});
+        const user = await User.findOne({ where: { id: createFeedbackDto.userId }});
+
+        if (!user) {
+            throw new NotFoundException('User not found', '404');
+        }
 
         if (!recipe) {
           throw new NotFoundException('Recipe not found', '404');
         }
 
-        
+
         feedback.recipe = recipe;
         await feedback.save();
         return feedback;

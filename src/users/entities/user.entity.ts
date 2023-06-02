@@ -1,6 +1,9 @@
-import { BaseEntity, BeforeInsert, Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, BeforeInsert, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 import * as bcrypt from 'bcryptjs';
+import { Recipe } from "src/recipes/recipe.entity";
+import { Feed } from "semantic-ui-react";
+import { Feedback } from "src/feedbacks/feedback.entity";
 
 @Entity()
 export class User extends BaseEntity{
@@ -32,6 +35,13 @@ export class User extends BaseEntity{
 
     @Column()
     password: string;
+
+    @ManyToMany(() => Recipe, recipe => recipe.users)
+    @JoinTable()
+    recipes: Recipe[];
+
+    @OneToMany(() => Feedback, feedback => feedback.user)
+    feedbacks: Feedback[];
 
     @BeforeInsert()
     async hashPassword(){

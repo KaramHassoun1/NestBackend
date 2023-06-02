@@ -11,11 +11,4 @@ export class AuthController {
   async login(@Body() AuthLoginDto: AuthLoginDto) {
     return await this.authService.login(AuthLoginDto);
   }
-
-  @UseGuards(JwtAuthGuard)
-  @Get()
-  async test() {
-    return "Success Login";
-  }
-
 }

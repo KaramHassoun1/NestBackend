@@ -33,6 +33,26 @@ export class UsersController {
     return this.usersService.remove(+id);
   }
 
+  @Get(':id/recipes')
+  showRecipes(@Param('id') id: string) {
+    return this.usersService.showRecipes(+id);
+  }
+
+  @Post(':id/recipes')
+  AddRecipe(@Param('id') id: string, @Body() AddReceiptDto: any) {
+    return this.usersService.addRecipe(+id, AddReceiptDto.recipeId);
+  }
+
+  @Delete(':id/recipes')
+  RemoveRecipe(@Param('id') id: string, @Body() DeleteReceiptDto: any) {
+    return this.usersService.removeRecipe(+id, DeleteReceiptDto.recipeId);
+  }
+
+  @Get(':id/feedbacks')
+  showFeedbacks(@Param('id') id: string) {
+    return this.usersService.showFeedbacks(+id);
+  }
+
 
 
   
