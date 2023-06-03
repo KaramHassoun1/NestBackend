@@ -21,7 +21,7 @@ export class Ingredient extends BaseEntity{
     @Column({ nullable: true })
     foodCategory: string;
 
-    @Column()
+    @Column({ nullable: true})
     imageUrl: string;
 
     @Column()
